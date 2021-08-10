@@ -18,4 +18,4 @@ def home():
 
 @app.route("/error")
 def error():
-    raise RuntimeError("something is breaking 😬")
+    raise SyntaxError("something else is breaking 😬")
