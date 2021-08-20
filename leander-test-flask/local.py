@@ -1,4 +1,5 @@
 import sentry_sdk
+from datetime import date
 from flask import Flask
 from sentry_sdk.integrations.flask import FlaskIntegration
 
@@ -18,4 +19,4 @@ def home():
 
 @app.route("/error")
 def error():
-    raise SyntaxError("something else is breaking 😬")
+    raise NameError("something else is breaking 😬 " + date())
