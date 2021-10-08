@@ -1,0 +1,130 @@
+{
+  "elements": [
+    {
+      "type": "issue-link",
+      "link": {
+        "uri": "/2645db35-6b44-44e5-a020-8567c43fee4f",
+        "required_fields": [
+          {
+            "type": "select",
+            "label": "Issue",
+            "name": "issue_id",
+            "options": [
+              ["issue-0", "#issue-0"],
+              ["issue-1", "#issue-1"],
+              ["issue-2", "#issue-2"],
+              ["issue-3", "#issue-3"],
+              ["issue-4", "#issue-4"]
+            ]
+          }
+        ]
+      },
+      "create": {
+        "uri": "/2645db35-6b44-44e5-a020-8567c43fee4f",
+        "required_fields": [
+          {
+            "type": "text",
+            "label": "Title",
+            "name": "title",
+            "default": "issue.title"
+          },
+          {
+            "type": "textarea",
+            "label": "Description",
+            "name": "description",
+            "default": "issue.description"
+          }
+        ],
+        "optional_fields": [
+          {
+            "type": "select",
+            "label": "Owner",
+            "name": "owner",
+            "options": [
+              ["member-0", "@member-0"],
+              ["member-1", "@member-1"],
+              ["member-2", "@member-2"]
+            ]
+          },
+          {
+            "type": "select",
+            "label": "Unimportant Selection",
+            "name": "unimportant-selection",
+            "options": [
+              ["mystic", "#mystic"],
+              ["valor", "#valor"],
+              ["instinct", "#instinct"]
+            ]
+          }
+        ],
+        "title": "Create Alert Rule UI Example Task",
+        "description": "Create an example alert rule task in the UI"
+      }
+    },
+    {
+      "type": "alert-rule-action",
+      "title": "Create an alert via UI-Spec Integration",
+      "settings": {
+        "type": "alert-rule-settings",
+        "uri": "/2645db35-6b44-44e5-a020-8567c43fee4f",
+        "required_fields": [
+          {
+            "type": "text",
+            "label": "Title",
+            "name": "title"
+          },
+          {
+            "type": "select",
+            "name": "workspace",
+            "label": "Workspace",
+            "options": [
+              ["workspace-0", "#workspace-0"],
+              ["workspace-1", "#workspace-1"],
+              ["workspace-2", "#workspace-2"],
+              ["workspace-1", "#workspace-3"],
+              ["workspace-1", "#workspace-5"]
+            ]
+          },
+          {
+            "type": "select",
+            "name": "tag",
+            "label": "Tag",
+            "options": [
+              ["tag-0", "#tag-0"],
+              ["tag-1", "#tag-1"],
+              ["tag-2", "#tag-2"],
+              ["tag-1", "#tag-3"]
+            ]
+          }
+        ],
+        "optional_fields": [
+          {
+            "type": "select",
+            "name": "assignee",
+            "label": "Assignee",
+            "options": [
+              ["member-0", "@member-0"],
+              ["member-1", "@member-1"],
+              ["member-2", "@member-2"]
+            ]
+          },
+          {
+            "type": "textarea",
+            "label": "Description",
+            "name": "description"
+          },
+          {
+            "type": "select",
+            "label": "Team",
+            "name": "team",
+            "options": [
+              ["mystic", "#mystic"],
+              ["valor", "#valor"],
+              ["instinct", "#instinct"]
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "elements": [
+    {
+      "type": "issue-link",
+      "link": {
+        "uri": "/sentry-test@dev/",
+        "required_fields": [
+          {
+            "type": "select",
+            "label": "Issue",
+            "name": "issue_id",
+            "uri": "/sentry-test@dev/test/select/issues/"
+          }
+        ]
+      },
+      "create": {
+        "uri": "/sentry-test@dev/",
+        "required_fields": [
+          {
+            "type": "text",
+            "label": "Title",
+            "name": "title",
+            "default": "issue.title"
+          },
+          {
+            "type": "textarea",
+            "label": "Description",
+            "name": "description",
+            "default": "issue.description"
+          }
+        ],
+        "optional_fields": [
+          {
+            "type": "select",
+            "label": "Owner",
+            "name": "owner",
+            "uri": "/sentry-test@dev/test/select/members/",
+            "async": true
+          },
+          {
+            "type": "select",
+            "label": "Unimportant Selection",
+            "name": "unimportant-selection",
+            "options": [
+              ["#mystic", "mystic"],
+              ["#valor", "valor"],
+              ["#instinct", "instinct"]
+            ]
+          }
+        ],
+        "title": "Create Alert Rule UI Example Task",
+        "description": "Create an example alert rule task in the UI"
+      }
+    },
+    {
+      "type": "alert-rule-action",
+      "title": "Create Alert Rule UI Example Task",
+      "settings": {
+        "type": "alert-rule-settings",
+        "uri": "/sentry-test@dev/",
+        "required_fields": [
+          {
+            "type": "text",
+            "label": "Title",
+            "name": "title"
+          },
+          {
+            "type": "select",
+            "uri": "/sentry-test@dev/test/select/workspaces/",
+            "name": "workspace",
+            "label": "Workspace",
+            "async": true
+          },
+          {
+            "type": "select",
+            "uri": "/sentry-test@dev/test/select/tags/",
+            "name": "tag",
+            "label": "Tag",
+            "async": true
+          }
+        ],
+        "optional_fields": [
+          {
+            "type": "select",
+            "uri": "/sentry-test@dev/test/select/members/",
+            "name": "assignee",
+            "label": "Assignee",
+            "async": true
+          },
+          {
+            "type": "textarea",
+            "label": "Description",
+            "name": "description"
+          },
+          {
+            "type": "select",
+            "label": "Unimportant Selection",
+            "name": "unimportant-selection",
+            "options": [
+              ["#mystic", "mystic"],
+              ["#valor", "valor"],
+              ["#instinct", "instinct"]
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
