@@ -3,24 +3,24 @@
     {
       "type": "issue-link",
       "link": {
-        "uri": "/2645db35-6b44-44e5-a020-8567c43fee4f",
+        "uri": "/7aaeb5ac-1acb-46cb-bb4e-5ea99fa0a10c",
         "required_fields": [
           {
             "type": "select",
             "label": "Issue",
             "name": "issue_id",
             "options": [
-              ["issue-0", "#issue-0"],
-              ["issue-1", "#issue-1"],
-              ["issue-2", "#issue-2"],
-              ["issue-3", "#issue-3"],
-              ["issue-4", "#issue-4"]
+              ["issue-0", "[Bug] Users aren't receiving marketing emails"],
+              ["issue-1", "[Task] Migrate v1 users onto v2 of service product"],
+              ["issue-2", "[Chore] Deprecate the 2014 API handlers"],
+              ["issue-3", "[Chore] Ditch all JavaScript for Web Assembly"],
+              ["issue-4", "[Bug] Unexpected character crashing at checkout"]
             ]
           }
         ]
       },
       "create": {
-        "uri": "/2645db35-6b44-44e5-a020-8567c43fee4f",
+        "uri": "/7aaeb5ac-1acb-46cb-bb4e-5ea99fa0a10c",
         "required_fields": [
           {
             "type": "text",
@@ -38,89 +38,83 @@
         "optional_fields": [
           {
             "type": "select",
-            "label": "Owner",
+            "label": "Domain Expert",
             "name": "owner",
             "options": [
-              ["member-0", "@member-0"],
-              ["member-1", "@member-1"],
-              ["member-2", "@member-2"]
+              ["member-0", "@engineering"],
+              ["member-1", "@design"],
+              ["member-2", "@sales"]
             ]
           },
           {
             "type": "select",
-            "label": "Unimportant Selection",
+            "label": "Priority",
             "name": "unimportant-selection",
             "options": [
-              ["mystic", "#mystic"],
-              ["valor", "#valor"],
-              ["instinct", "#instinct"]
+              ["instinct", "P2"],
+              ["mystic", "P1"],
+              ["valor", "P0"]
             ]
           }
-        ],
-        "title": "Create Alert Rule UI Example Task",
-        "description": "Create an example alert rule task in the UI"
+        ]
       }
     },
     {
       "type": "alert-rule-action",
-      "title": "Create an alert via UI-Spec Integration",
+      "title": "Send a WUPHF alarm",
       "settings": {
         "type": "alert-rule-settings",
-        "uri": "/2645db35-6b44-44e5-a020-8567c43fee4f",
+        "uri": "/7aaeb5ac-1acb-46cb-bb4e-5ea99fa0a10c",
         "required_fields": [
           {
             "type": "text",
-            "label": "Title",
-            "name": "title"
+            "label": "What happened to trigger this alert?",
+            "name": "summary"
           },
           {
             "type": "select",
-            "name": "workspace",
-            "label": "Workspace",
+            "name": "medium",
+            "label": "How would you like WUPHF to notify you?",
             "options": [
-              ["workspace-0", "#workspace-0"],
-              ["workspace-1", "#workspace-1"],
-              ["workspace-2", "#workspace-2"],
-              ["workspace-1", "#workspace-3"],
-              ["workspace-1", "#workspace-5"]
+              ["pager", "Pager"],
+              ["sms", "SMS"],
+              ["phone-call", "Phone Call"],
+              ["fax", "Fax"],
+              ["hand-written-letter", "Hand-written Letter"],
+              ["next-day-air", "Next-day Air"]
             ]
           },
           {
             "type": "select",
             "name": "tag",
-            "label": "Tag",
+            "label": "Which of these channels will receive the WUPHF alarm?",
             "options": [
-              ["tag-0", "#tag-0"],
-              ["tag-1", "#tag-1"],
-              ["tag-2", "#tag-2"],
-              ["tag-1", "#tag-3"]
+              ["product", "#product"],
+              ["devops", "#devops"],
+              ["operations", "#operations"],
+              ["everyone", "#everyone"]
             ]
           }
         ],
         "optional_fields": [
           {
-            "type": "select",
-            "name": "assignee",
-            "label": "Assignee",
-            "options": [
-              ["member-0", "@member-0"],
-              ["member-1", "@member-1"],
-              ["member-2", "@member-2"]
-            ]
-          },
-          {
             "type": "textarea",
-            "label": "Description",
+            "label": "Want any other details attached to these alerts?",
             "name": "description"
           },
           {
             "type": "select",
-            "label": "Team",
-            "name": "team",
+            "name": "assignee",
+            "label": "If this does alert does go off, who are we firing?",
             "options": [
-              ["mystic", "#mystic"],
-              ["valor", "#valor"],
-              ["instinct", "#instinct"]
+              ["member-0", "@leander"],
+              ["member-1", "@leander"],
+              ["member-2", "@leander"],
+              ["member-3", "@leander"],
+              ["member-4", "@leander"],
+              ["member-5", "@leander"],
+              ["member-6", "@leander"],
+              ["not-leander", "@not-leander"]
             ]
           }
         ]

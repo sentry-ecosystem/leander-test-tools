@@ -20,5 +20,4 @@ def home():
 
 @app.route("/error")
 def error():
-
-    raise NameError("🦄🦄🦄  This is a new issue!  🦄🦄🦄" + str(random()))
+    raise NameError("🔥🔥🔥 Error 1")
