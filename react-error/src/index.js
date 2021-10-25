@@ -5,7 +5,7 @@ import "./index.css";
 import App from "./App";
 
 Sentry.init({
-  dsn: "http://b4ac771c9a324728abf8ea7bcde34fca@localhost:8000/2"
+  dsn: "http://c2f5f4bd6b024244bdcaa092117475f1@localhost:8000/4",
 });
 
 ReactDOM.render(<App />, document.getElementById("root"));
