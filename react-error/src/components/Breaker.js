@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { captureException, configureScope } from "@sentry/browser";
+
+// import * as FullStory from "@fullstory/browser";
 import info from "./info.json";
 
 const { names, handles } = info;
@@ -25,14 +27,21 @@ const Breaker = () => {
         username,
         email: getEmail(username),
       };
+      const bestFriend = names.randomElement();
+      const isCool = Math.random() > 0.5;
       configureScope((scope) => {
         scope.setUser(user);
-        scope.setTag("best_friend", names.randomElement());
-        scope.setTag("is_cool", Math.random() > 0.5);
+        scope.setTag("best_friend", bestFriend);
+        scope.setTag("is_cool", isCool);
       });
-      captureException(
-        new SyntaxError("Oops, we let the intern make this feature 😬")
-      );
+      // Send exception to Sentry
+      captureException(new SyntaxError("🔥🔥🔥 Error 5"));
+      // Send event to FullStory
+      // FullStory.event("Started Errors", {
+      //   user,
+      //   best_friend: bestFriend,
+      //   is_cool: isCool,
+      // });
       updateTimes(times + 1);
     }, 1000);
     return () => clearInterval(interval);
