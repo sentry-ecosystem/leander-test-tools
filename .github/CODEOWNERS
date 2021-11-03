@@ -1,7 +1,7 @@
-* @leander-test1
+* @sentry-ecosystem/leander-test1
 
-react-error/* @leander-test2
-react-error/*.js  @leander-test3
+react-error/* @sentry-ecosystem/leander-test2 @leeandher
+react-error/*.js  @sentry-ecosystem/leander-test3 @leeandher-test
 
-flask-error/ @leander-test4
-flask-error/*.py @leander-test5
+flask-error/ @sentry-ecosystem/leander-test4
+flask-error/*.py @sentry-ecosystem/leander-test5
