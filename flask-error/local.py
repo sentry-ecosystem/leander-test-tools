@@ -20,4 +20,4 @@ def home():
 
 @app.route("/error")
 def error():
-    raise NameError("🔥🔥🔥 Error 1")
+    raise NameError("🔥🔥🔥 Error 9")
