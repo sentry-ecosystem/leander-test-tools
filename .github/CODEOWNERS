@@ -1,0 +1,7 @@
+* @leander-test1
+
+react-error/* @leander-test2
+react-error/*.js  @leander-test3
+
+flask-error/ @leander-test4
+flask-error/*.py @leander-test5
