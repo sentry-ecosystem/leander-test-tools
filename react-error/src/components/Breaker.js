@@ -35,7 +35,7 @@ const Breaker = () => {
         scope.setTag("is_cool", isCool);
       });
       // Send exception to Sentry
-      captureException(new SyntaxError("🔥🔥🔥 Error 5"));
+      captureException(new TypeError("😭 yikes"));
       // Send event to FullStory
       // FullStory.event("Started Errors", {
       //   user,
@@ -43,7 +43,7 @@ const Breaker = () => {
       //   is_cool: isCool,
       // });
       updateTimes(times + 1);
-    }, 1000);
+    }, 100);
     return () => clearInterval(interval);
   });
 
