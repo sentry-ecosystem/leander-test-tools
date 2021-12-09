@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { captureException, configureScope } from "@sentry/browser";
 
-// import * as FullStory from "@fullstory/browser";
+import * as FullStory from "@fullstory/browser";
 import info from "./info.json";
 
 const { names, handles } = info;
@@ -37,11 +37,11 @@ const Breaker = () => {
       // Send exception to Sentry
       captureException(new TypeError("😭 yikes"));
       // Send event to FullStory
-      // FullStory.event("Started Errors", {
-      //   user,
-      //   best_friend: bestFriend,
-      //   is_cool: isCool,
-      // });
+      FullStory.event("Started Errors", {
+        user,
+        best_friend: bestFriend,
+        is_cool: isCool,
+      });
       updateTimes(times + 1);
     }, 100);
     return () => clearInterval(interval);

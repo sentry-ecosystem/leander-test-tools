@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-// import * as FullStory from "@fullstory/browser";
+import * as FullStory from "@fullstory/browser";
 import * as Sentry from "@sentry/react";
 
 import Breaker from "./components/Breaker";
@@ -16,7 +16,7 @@ const App = () => {
         <div>
           <button
             onClick={() => {
-              // FullStory.getCurrentSessionURL(true);
+              FullStory.getCurrentSessionURL(true);
               setThrowErrors(true);
             }}
           >
@@ -29,7 +29,7 @@ const App = () => {
         <div>
           <button
             onClick={() => {
-              // FullStory.getCurrentSessionURL();
+              FullStory.getCurrentSessionURL();
               setSendRequests(true);
             }}
           >
