@@ -1,0 +1,31 @@
+{
+  "elements": [
+    {
+      "type": "issue-link",
+      "link": {
+        "uri": "/issue-link",
+        "required_fields": [
+          {
+            "type": "text",
+            "label": "Name",
+            "name": "name"
+          }
+        ]
+      },
+      "create": {
+        "uri": "/issue-link",
+        "required_fields": [
+          {
+            "type": "text",
+            "label": "Name",
+            "name": "name"
+          }
+        ]
+      }
+    },
+    {
+      "type": "stacktrace-link",
+      "uri": "/stacktrace-link"
+    }
+  ]
+}
