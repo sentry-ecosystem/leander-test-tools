@@ -43,7 +43,7 @@ def home():
 
 @app.route("/error")
 def error():
-    raise NameError("🔥🔥🔥 Error 2")
+    raise NameError("🔥 Error 3")
 
 
 if __name__ == "__main__":
