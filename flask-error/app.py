@@ -3,28 +3,31 @@ from flask import Flask
 from sentry_sdk.integrations.flask import FlaskIntegration
 import argparse
 
-SENTRY_DSN = "http://93b7b137357b4edd9fbb538ee398b7e9@localhost:8000/2"
-GETSENTRY_DSN = "http://bd63f9383e4747a89fa5015a94616197@dev.getsentry.net:8000/2"
+LOCAL_SENTRY_DSN = "https://93b7b137357b4edd9fbb538ee398b7e9@leeandher.ngrok.io/2"
+LOCAL_GETSENTRY_DSN = "http://bd63f9383e4747a89fa5015a94616197@dev.getsentry.net:8000/2"
 HOSTED_DSN = "https://f61444722ce0460892f94a6d5d110596@o951660.ingest.sentry.io/5900755"
+MARCOS_DSN = "https://9db93bc8a4f011eaa82d4201c0a8d032@o401775.ingest.sentry.io/5261902"
 
 parser = argparse.ArgumentParser(description="Create some sentry errors")
 parser.add_argument('instance',
-                    default='sentry',
+                    default='local sentry',
                     const='sentry',
                     nargs='?',
-                    choices=['sentry', 'getsentry', 'hosted'],
+                    choices=['local sentry', 'local getsentry', 'hosted'],
                     help='Sentry instance to receive errors')
 
 
 def dsn_selector():
     args = parser.parse_args()
     print(f"Sending errors to '{args.instance}' instance...")
-    if args.instance == 'getsentry':
-        return GETSENTRY_DSN
+    if args.instance == 'local getsentry':
+        return LOCAL_GETSENTRY_DSN
     elif args.instance == 'hosted':
         return HOSTED_DSN
+    elif args.instance == 'marcos':
+        return MARCOS_DSN
     else:
-        return SENTRY_DSN
+        return LOCAL_SENTRY_DSN
 
 
 sentry_sdk.init(
@@ -43,7 +46,7 @@ def home():
 
 @app.route("/error")
 def error():
-    raise NameError("🔥 Error 3")
+    sentry_sdk.capture_exception(ValueError("This is a test error 2"))
 
 
 if __name__ == "__main__":
