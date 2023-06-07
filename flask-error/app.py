@@ -34,7 +34,6 @@ sentry_sdk.init(
     dsn=dsn_selector(),
     integrations=[FlaskIntegration()],
     traces_sample_rate=1.0,
-    release='abc'
 )
 
 app = Flask(__name__)
@@ -47,7 +46,7 @@ def home():
 
 @app.route("/error")
 def error():
-    sentry_sdk.capture_exception(ValueError("This is a test error 2"))
+    sentry_sdk.capture_exception(ValueError("TestError4"))
 
 
 if __name__ == "__main__":
