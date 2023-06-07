@@ -46,7 +46,7 @@ def home():
 
 @app.route("/error")
 def error():
-    sentry_sdk.capture_exception(ValueError("TestError4"))
+    sentry_sdk.capture_exception(ValueError("TestError5"))
 
 
 if __name__ == "__main__":
