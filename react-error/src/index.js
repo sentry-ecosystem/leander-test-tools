@@ -10,7 +10,7 @@ import App from "./App";
 // FullStory.init({ orgId: "164KVD" });
 
 Sentry.init({
-  dsn: "http://c2f5f4bd6b024244bdcaa092117475f1@localhost:8000/4",
+  dsn: "https://6338209daaba4a868fca858e3f7ebfc2@o951660.ingest.sentry.io/6507927",
   integrations: [
     // new SentryFullStory("leander-test"),
     new TracingIntegrations.BrowserTracing({
