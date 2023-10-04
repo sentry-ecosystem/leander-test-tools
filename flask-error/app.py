@@ -8,6 +8,7 @@ LOCAL_GETSENTRY_DSN = (
     "https://ee8749033b194d888fe17531eac25a35@leeandher.ngrok.io/4505319664189440"
 )
 HOSTED_DSN = "https://6338209daaba4a868fca858e3f7ebfc2@o951660.ingest.sentry.io/6507927"
+SILO_DSN = "https://e9a3d278c7729cdf4e9d2162ba377d83@test-region.test.my.sentry.io/4505992947957808"
 
 parser = argparse.ArgumentParser(description="Create some sentry errors")
 parser.add_argument(
@@ -15,7 +16,7 @@ parser.add_argument(
     default="local sentry",
     const="sentry",
     nargs="?",
-    choices=["local sentry", "local getsentry", "hosted"],
+    choices=["local sentry", "local getsentry", "hosted", "silo"],
     help="Sentry instance to receive errors",
 )
 
@@ -27,6 +28,8 @@ def dsn_selector():
         return LOCAL_GETSENTRY_DSN
     elif args.instance == "hosted":
         return HOSTED_DSN
+    elif args.instance == "silo":
+        return SILO_DSN
     else:
         return LOCAL_SENTRY_DSN
 
