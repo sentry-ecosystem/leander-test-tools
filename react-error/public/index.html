@@ -4,6 +4,30 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#ceb4d4" />
+    <script type="text/javascript">
+        !function(a,b){var c=window;c.SessionStackKey=a,c[a]=c[a]||{t:b,
+        q:[]};for(var d=["start","stop","identify","getSessionId","log","setOnDataCallback","trackEvent"],e=0;e<d.length;e++)!function(b){
+        c[a][b]=c[a][b]||function(){c[a].q.push([b].concat([].slice.call(arguments,0)));
+        }}(d[e]);var f=document.createElement("script");f.async=1,f.crossOrigin="anonymous",
+        f.src="https://cdn.sessionstack.com/sessionstack.js";var g=document.getElementsByTagName("script")[0];
+        g.parentNode.insertBefore(f,g)}("SessionStack","b8d155a3f80547c5ac2131e60e107744");
+        </script>
+    <script type="text/javascript">
+        SessionStack.getSessionId(function(sessionId) {
+            Sentry.configureScope(scope => {
+                scope.addEventProcessor(async event => {
+                    event.contexts = {
+                        sessionstack: {
+                            session_id: sessionId,
+                            timestamp: (new Date()).getTime()
+                        }
+                    };
+        
+                    return event;
+                });
+            });
+        });
+        </script>
     <title>💜 Sending Errors to Sentry...</title>
   </head>
   <body>
