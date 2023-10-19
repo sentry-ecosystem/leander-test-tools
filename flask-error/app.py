@@ -52,7 +52,7 @@ def home():
 def error():
     sentry_sdk.set_user({"id": 12, "email": "leander.rodrigues@sentry.io"})
 
-    print(test14)
+    print(test15)
     # sentry_sdk.capture_exception(ValueError("TestError5"))
 
 
