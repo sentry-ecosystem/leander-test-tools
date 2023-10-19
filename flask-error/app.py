@@ -3,7 +3,7 @@ from flask import Flask
 from sentry_sdk.integrations.flask import FlaskIntegration
 import argparse
 
-LOCAL_SENTRY_DSN = "https://96e4bfeea741615f0d83ca82c187ec5d@leeandher.ngrok.io/18"
+LOCAL_SENTRY_DSN = "https://4bb8adf9789742c590395533a427a0e1@leeandher.ngrok.io/8"
 LOCAL_GETSENTRY_DSN = (
     "https://ee8749033b194d888fe17531eac25a35@leeandher.ngrok.io/4505319664189440"
 )
@@ -50,8 +50,20 @@ def home():
 
 @app.route("/error")
 def error():
-    print(1 / 0)
+    sentry_sdk.set_user({"id": 12, "email": "leander.rodrigues@sentry.io"})
+
+    print(test13lo)
     # sentry_sdk.capture_exception(ValueError("TestError5"))
+
+
+@app.route("/txn")
+def transaction():
+    counter = 1
+    with sentry_sdk.start_transaction(op="task", name="Test TXN"):
+        with sentry_sdk.start_span(description="Test Span"):
+            while counter < 10000:
+                counter = counter + 1
+        return "<h1>Test</h1>"
 
 
 if __name__ == "__main__":
