@@ -10,7 +10,7 @@ import App from "./App";
 // FullStory.init({ orgId: "164KVD" });
 
 Sentry.init({
-  dsn: "https://6338209daaba4a868fca858e3f7ebfc2@o951660.ingest.sentry.io/6507927",
+  dsn: "https://4bb8adf9789742c590395533a427a0e1@leeandher.ngrok.io/8",
   integrations: [
     // new SentryFullStory("leander-test"),
     new TracingIntegrations.BrowserTracing({
@@ -20,5 +20,7 @@ Sentry.init({
   ],
   tracesSampleRate: 1.0,
 });
+
+Sentry.setContext("session_id", "12123");
 
 ReactDOM.render(<App />, document.getElementById("root"));
