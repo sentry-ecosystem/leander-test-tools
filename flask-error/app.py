@@ -1,9 +1,10 @@
+import argparse
+
 import sentry_sdk
 from flask import Flask
 from sentry_sdk.integrations.flask import FlaskIntegration
-import argparse
 
-LOCAL_SENTRY_DSN = "https://4bb8adf9789742c590395533a427a0e1@leeandher.ngrok.io/8"
+LOCAL_SENTRY_DSN = "https://f49e66d2dcd52bda4d521113c229dbc8@leeandher.ngrok.io/16"
 LOCAL_GETSENTRY_DSN = (
     "https://ee8749033b194d888fe17531eac25a35@leeandher.ngrok.io/4505319664189440"
 )
@@ -52,7 +53,7 @@ def home():
 def error():
     sentry_sdk.set_user({"id": 12, "email": "leander.rodrigues@sentry.io"})
 
-    print(test15)
+    print(test29)
     # sentry_sdk.capture_exception(ValueError("TestError5"))
 
 
