@@ -39,6 +39,7 @@ sentry_sdk.init(
     dsn=dsn_selector(),
     integrations=[FlaskIntegration()],
     traces_sample_rate=1.0,
+    release="1.2",
 )
 
 app = Flask(__name__)
@@ -52,9 +53,7 @@ def home():
 @app.route("/error")
 def error():
     sentry_sdk.set_user({"id": 12, "email": "leander.rodrigues@sentry.io"})
-
-    print(test30)
-    # sentry_sdk.capture_exception(ValueError("TestError5"))
+    print(test32)
 
 
 @app.route("/txn")
