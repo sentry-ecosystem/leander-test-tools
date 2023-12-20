@@ -54,7 +54,7 @@ def home():
 @app.route("/error")
 def error():
     sentry_sdk.set_user({"id": 12, "email": "leander.rodrigues@sentry.io"})
-    print(test34)
+    print(test36)
 
 
 @app.route("/txn")
