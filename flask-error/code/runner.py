@@ -1,2 +1,2 @@
 def error_function():
-    print(name1)
+    print(name2)
