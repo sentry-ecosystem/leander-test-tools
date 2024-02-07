@@ -4,12 +4,12 @@ import sentry_sdk
 from flask import Flask
 from sentry_sdk.integrations.flask import FlaskIntegration
 
-# acme / daffy
-LOCAL_SENTRY_DSN = "https://f49e66d2dcd52bda4d521113c229dbc8@leeandher.ngrok.io/16"
+
+LOCAL_SENTRY_DSN = "https://69b42e5ad1606cdf535262d253800f93@leeandher.ngrok.io/2"
 LOCAL_GETSENTRY_DSN = (
     "https://ee8749033b194d888fe17531eac25a35@leeandher.ngrok.io/4505319664189440"
 )
-HOSTED_DSN = "https://6338209daaba4a868fca858e3f7ebfc2@o951660.ingest.sentry.io/6507927"
+HOSTED_DSN = "https://6338209daaba4a868fca858e3f7ebfc2@us.sentry.io/6507927"
 SILO_DSN = "https://e9a3d278c7729cdf4e9d2162ba377d83@test-region.test.my.sentry.io/4505992947957808"
 
 parser = argparse.ArgumentParser(description="Create some sentry errors")
@@ -54,7 +54,7 @@ def home():
 @app.route("/error")
 def error():
     sentry_sdk.set_user({"id": 12, "email": "leander.rodrigues@sentry.io"})
-    from code.runner import error_function
+    from src.runner import error_function
 
     error_function()
 
@@ -70,4 +70,4 @@ def transaction():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
