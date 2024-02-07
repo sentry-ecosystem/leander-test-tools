@@ -40,7 +40,6 @@ sentry_sdk.init(
     dsn=dsn_selector(),
     integrations=[FlaskIntegration()],
     traces_sample_rate=1.0,
-    release="1.6",
 )
 
 app = Flask(__name__)
