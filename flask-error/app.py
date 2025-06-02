@@ -5,12 +5,22 @@ import sentry_sdk
 from flask import Flask
 from sentry_sdk.integrations.flask import FlaskIntegration
 
-LOCAL_SENTRY_DSN = "https://69b42e5ad1606cdf535262d253800f93@leeandher.ngrok.io/2"
+LOCAL_SENTRY_DSN = "https://b5c168e6733954b4405f91d3b29925ae@leeandher.ngrok.io/2"  # acme / leander-test-tools
+
+
 LOCAL_GETSENTRY_DSN = (
     "https://287a7215db7931a63e5d7a2f62506f9a@leeandher.ngrok.io/4506974030528528"
 )
-# acme-e0 // leander-test-flask
-HOSTED_DSN = "https://f61444722ce0460892f94a6d5d110596@o951660.ingest.sentry.io/5900755"
+
+# devsentry-ecosystem
+ECOSYSTEM_DSN = "https://234c699ac7f8b1dfd98765149a65b9fd@o4506792933130240.ingest.us.sentry.io/4509407223152640"
+
+# sentry-leander // leander-test-flask
+SENTRY_LEANDER_DSN = (
+    "https://60ed8c2ffc834b80bba574da66d959a3@o951660.ingest.us.sentry.io/6507613"
+)
+#  lxyz2 // django
+LXYZ2_DSN = "https://2d557e71645717ee2b69cb7caf4c4d1c@o1115830.ingest.us.sentry.io/4508609084981249"
 SILO_DSN = "https://e9a3d278c7729cdf4e9d2162ba377d83@test-region.test.my.sentry.io/4505992947957808"
 
 parser = argparse.ArgumentParser(description="Create some sentry errors")
@@ -19,7 +29,7 @@ parser.add_argument(
     default="sentry",
     const="sentry",
     nargs="?",
-    choices=["sentry", "getsentry", "hosted", "silo"],
+    choices=["sentry", "getsentry", "lxyz2", "silo", "ecosystem", "leander"],
     help="Sentry instance to receive errors",
 )
 
@@ -29,8 +39,12 @@ def dsn_selector():
     print(f"Sending errors to '{args.instance}' instance...")
     if args.instance == "getsentry":
         return LOCAL_GETSENTRY_DSN
-    elif args.instance == "hosted":
-        return HOSTED_DSN
+    elif args.instance == "lxyz2":
+        return LXYZ2_DSN
+    elif args.instance == "ecosystem":
+        return ECOSYSTEM_DSN
+    elif args.instance == "leander":
+        return SENTRY_LEANDER_DSN
     elif args.instance == "silo":
         return SILO_DSN
     else:
@@ -40,8 +54,10 @@ def dsn_selector():
 sentry_sdk.init(
     dsn=dsn_selector(),
     integrations=[FlaskIntegration()],
+    send_default_pii=True,
     traces_sample_rate=1.0,
-    release="abcdefghijklmnoqrstuvwxyzabcdefghijklmnoqrstuvwxyzabcdefghijklmnoqrstuvwxyzabcdefghijklmnoqrstuvwxyzabcdefghijklmnoqrstuvwxyzabcdefghijklmnoqrstuvwxyzabcdefghijklmnoqrstuvwxyz",
+    # profile_session_sample_rate=1.0,
+    # profile_lifecycle="trace",
 )
 
 app = Flask(__name__)
@@ -52,6 +68,7 @@ def home():
     return """
     <div>
     <h1>Hello World!</h1>
+    <h1></h2>
     <a href="/regular">Link to regular page</a>
     <a href="/error">Link to error page</a>
     </div>"""
@@ -78,7 +95,6 @@ def error():
             "ip_address": "12.34.56.78",
             "other": "property",
             "location": "canada",
-            "data": [1, 2, 3, 4],
         }
     )
     sentry_sdk.set_tag("my_favourite.color", "teal")
@@ -87,17 +103,17 @@ def error():
     sentry_sdk.set_tag("super", "text")
     sentry_sdk.set_tag("api_key", "12341234")
     sentry_sdk.set_tag("CLIENT_SECRET", "b12")
-    sentry_sdk.set_tag(
-        "extra-long",
-        "veryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryverylong",
-    )
+    # sentry_sdk.set_tag(
+    #     "extra-long",
+    #     "veryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryverylong",
+    # )
     # sentry_sdk.set_tag(
     #     "invalid-char",
     #     """invale\n\ncharacters
     #     🇨🇦🔥🤡
     #     """,
     # )
-    sentry_sdk.set_tag("slash/1", "some-value")
+    # sentry_sdk.set_tag("slash/1", "some-value")
     sentry_sdk.set_tag("super.nested.value1", "text1")
     sentry_sdk.add_breadcrumb(
         {
@@ -120,6 +136,25 @@ def error():
     sentry_sdk.set_tag("double..dot", "display these normally")
     sentry_sdk.set_tag(
         "triple...dot", "this is a very long tag its probably a bit too long actually"
+    )
+
+    sentry_sdk.set_context(
+        "client_os",
+        {
+            "type": "os",
+            "name": "Linux",
+            "version": "6.1.82(99.168.amzn2023.x86_64)",
+            "build": "20C69",
+            "kernel_version": "99.168.amzn2023.x86_64",
+            "rooted": True,
+            "theme": "dark",
+            "raw_description": "i didn't know amazon had a linux distro",
+            "distribution": {
+                "name": "amzn",
+                "version": "2023",
+                "pretty_name": "Amazon Linux 2023.4.20240401",
+            },
+        },
     )
     sentry_sdk.set_context(
         "secrets",
@@ -446,13 +481,14 @@ def error():
         {
             "attempting": "override",
             "name": "Chrome",
-            "status": "elementary",
             "Trace ID": "9258ee02268dbd01",
             "api_key": "mysupersecretapikey",
             "CLIENT_SECRET": "mysupersecretclientsecret",
             "fav-browser": "opera",
         },
     )
+    sentry_sdk.set_tag("slash/1", "some-value")
+    sentry_sdk.set_tag("slash/2", "some-value-2")
     sentry_sdk.set_context(
         "scrubthis",
         {
@@ -483,7 +519,8 @@ def error():
         )
         from src.runner import error_function
 
-        print(name126)
+        application = {}
+
         error_function()
 
 
