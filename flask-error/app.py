@@ -21,6 +21,9 @@ SENTRY_LEANDER_DSN = (
 )
 #  lxyz2 // django
 LXYZ2_DSN = "https://2d557e71645717ee2b69cb7caf4c4d1c@o1115830.ingest.us.sentry.io/4508609084981249"
+# leeandher // work-funnel
+WORK_FUNNEL_DSN = "https://1de16b5fb20c0dfe0379ec83d78194a5@o209069.ingest.us.sentry.io/4509707355947008"
+
 SILO_DSN = "https://e9a3d278c7729cdf4e9d2162ba377d83@test-region.test.my.sentry.io/4505992947957808"
 
 parser = argparse.ArgumentParser(description="Create some sentry errors")
@@ -29,7 +32,7 @@ parser.add_argument(
     default="sentry",
     const="sentry",
     nargs="?",
-    choices=["sentry", "getsentry", "lxyz2", "silo", "ecosystem", "leander"],
+    choices=["sentry", "getsentry", "lxyz2", "silo", "ecosystem", "leander", "work-funnel"],
     help="Sentry instance to receive errors",
 )
 
@@ -47,6 +50,8 @@ def dsn_selector():
         return SENTRY_LEANDER_DSN
     elif args.instance == "silo":
         return SILO_DSN
+    elif args.instance == "work-funnel":
+        return WORK_FUNNEL_DSN
     else:
         return LOCAL_SENTRY_DSN
 
