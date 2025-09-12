@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := setup
 
 setup:
-	python -m venv .venv
+	python3 -m venv .venv
 	direnv allow
 
 install:

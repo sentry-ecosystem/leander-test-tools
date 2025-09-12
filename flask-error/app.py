@@ -5,9 +5,7 @@ import sentry_sdk
 from flask import Flask
 from sentry_sdk.integrations.flask import FlaskIntegration
 
-LOCAL_SENTRY_DSN = "https://b5c168e6733954b4405f91d3b29925ae@leeandher.ngrok.io/2"  # acme / leander-test-tools
-
-
+LOCAL_SENTRY_DSN = "https://e530c552ee9f24b683852e2b20c1a0b0@leeandher.ngrok.io/2"
 LOCAL_GETSENTRY_DSN = (
     "https://287a7215db7931a63e5d7a2f62506f9a@leeandher.ngrok.io/4506974030528528"
 )
@@ -32,7 +30,15 @@ parser.add_argument(
     default="sentry",
     const="sentry",
     nargs="?",
-    choices=["sentry", "getsentry", "lxyz2", "silo", "ecosystem", "leander", "work-funnel"],
+    choices=[
+        "sentry",
+        "getsentry",
+        "lxyz2",
+        "silo",
+        "ecosystem",
+        "leander",
+        "work-funnel",
+    ],
     help="Sentry instance to receive errors",
 )
 
