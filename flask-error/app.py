@@ -12,10 +12,12 @@ LOCAL_GETSENTRY_DSN = (
 
 # devsentry-ecosystem
 ECOSYSTEM_DSN = "https://234c699ac7f8b1dfd98765149a65b9fd@o4506792933130240.ingest.us.sentry.io/4509407223152640"
+# sentry-leander-eu // legacy-data-forwarding
+LEGACY_DATA_FORWARD_DSN = "https://2e0ab03d072b9e54174406624fbf4ecc@o4509708210274304.ingest.de.sentry.io/4510358464954448"
 
 # sentry-leander // leander-test-flask
 SENTRY_LEANDER_DSN = (
-    "https://60ed8c2ffc834b80bba574da66d959a3@o951660.ingest.us.sentry.io/6507613"
+    "https://f61444722ce0460892f94a6d5d110596@o951660.ingest.us.sentry.io/5900755"
 )
 #  lxyz2 // django
 LXYZ2_DSN = "https://2d557e71645717ee2b69cb7caf4c4d1c@o1115830.ingest.us.sentry.io/4508609084981249"
@@ -34,9 +36,9 @@ parser.add_argument(
         "sentry",
         "getsentry",
         "lxyz2",
-        "silo",
         "ecosystem",
         "leander",
+        "temp",
         "work-funnel",
     ],
     help="Sentry instance to receive errors",
@@ -54,10 +56,10 @@ def dsn_selector():
         return ECOSYSTEM_DSN
     elif args.instance == "leander":
         return SENTRY_LEANDER_DSN
-    elif args.instance == "silo":
-        return SILO_DSN
     elif args.instance == "work-funnel":
         return WORK_FUNNEL_DSN
+    elif args.instance == "temp":
+        return LEGACY_DATA_FORWARD_DSN
     else:
         return LOCAL_SENTRY_DSN
 
