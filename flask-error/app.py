@@ -15,10 +15,8 @@ ECOSYSTEM_DSN = "https://234c699ac7f8b1dfd98765149a65b9fd@o4506792933130240.inge
 # sentry-leander-eu // legacy-data-forwarding
 LEGACY_DATA_FORWARD_DSN = "https://2e0ab03d072b9e54174406624fbf4ecc@o4509708210274304.ingest.de.sentry.io/4510358464954448"
 
-# sentry-leander // leander-test-flask
-SENTRY_LEANDER_DSN = (
-    "https://f61444722ce0460892f94a6d5d110596@o951660.ingest.us.sentry.io/5900755"
-)
+# sentry-leander // all-robots
+SENTRY_LEANDER_DSN = "https://567e5289194ac1e211357003733f1894@o951660.ingest.us.sentry.io/4510818206810112"
 #  lxyz2 // django
 LXYZ2_DSN = "https://2d557e71645717ee2b69cb7caf4c4d1c@o1115830.ingest.us.sentry.io/4508609084981249"
 # leeandher // work-funnel
@@ -530,11 +528,11 @@ def error():
                 "bug_report_number": 608548899684111178,
             },
         )
-        from src.runner import error_function
+        from src.runner import error
 
         application = {}
 
-        error_function()
+        error()
 
 
 @app.route("/txn")
