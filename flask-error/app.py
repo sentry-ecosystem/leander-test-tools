@@ -134,7 +134,7 @@ def error():
 @app.route("/txn")
 def transaction():
     counter = 1
-    with sentry_sdk.start_transaction(op="task", name="Test TXN"):
+    with sentry_sdk.start_transaction(op="task", name="robots-welcome"):
         with sentry_sdk.start_span(description="Test Span"):
             while counter < 10000:
                 counter = counter + 1
