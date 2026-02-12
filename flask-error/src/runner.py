@@ -12,6 +12,7 @@ def fetch_order_details(order_id):
         "customer": {"id": 12, "name": "Leander"},
         "status": "processing",
         "shipped_at": None,
+        "coupon": {"percent": 10},
     })
     return json.loads(response)
 
