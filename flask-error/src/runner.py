@@ -18,5 +18,10 @@ def fetch_order_details(order_id):
 
 def error():
     order = fetch_order_details("ORD-20260212-1847")
-    shipped_at = datetime.fromisoformat(order["shipped_at"])
-    days_since_shipped = (datetime.now() - shipped_at).days
+    if order["shipped_at"] is not None:
+        shipped_at = datetime.fromisoformat(order["shipped_at"])
+        days_since_shipped = (datetime.now() - shipped_at).days
+    else:
+        # Order hasn't been shipped yet
+        shipped_at = None
+        days_since_shipped = None
