@@ -1,12 +1,22 @@
-def get_user_profile(user_id):
-    users = {
-        1: {"name": "Alice", "email": "alice@example.com", "subscription": {"plan": "pro", "expires": "2026-03-01"}},
-        2: {"name": "Bob", "email": "bob@example.com", "subscription": None},
-        12: {"name": "Leander", "email": "leander.rodrigues@sentry.io"},
-    }
-    return users.get(user_id)
+import json
+from datetime import datetime
+
+
+def fetch_order_details(order_id):
+    response = json.dumps({
+        "order_id": order_id,
+        "items": [
+            {"sku": "WIDGET-42", "qty": 2, "price": 19.99},
+            {"sku": "GADGET-7", "qty": 1, "price": 49.99},
+        ],
+        "customer": {"id": 12, "name": "Leander"},
+        "status": "processing",
+        "shipped_at": None,
+    })
+    return json.loads(response)
 
 
 def error():
-    user = get_user_profile(12)
-    plan = user["subscription"]["plan"]
+    order = fetch_order_details("ORD-20260212-1847")
+    shipped_at = datetime.fromisoformat(order["shipped_at"])
+    days_since_shipped = (datetime.now() - shipped_at).days
