@@ -532,7 +532,9 @@ def error():
 
         application = {}
 
-        error()
+        # Wrap error-generating code in explicit transaction to ensure trace data is captured
+        with sentry_sdk.start_transaction(op="http.server", name="/error"):
+            error()
 
 
 @app.route("/txn")
