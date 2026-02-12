@@ -1,0 +1,15 @@
+{
+  "functions": {
+    "api/error.js": {
+      "runtime": "edge"
+    }
+  },
+  "env": {
+    "SENTRY_DSN": "@sentry-dsn"
+  },
+  "build": {
+    "env": {
+      "SENTRY_DSN": "@sentry-dsn"
+    }
+  }
+}
