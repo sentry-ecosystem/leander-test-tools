@@ -10,6 +10,7 @@ def fetch_order_details(order_id):
             {"sku": "GADGET-7", "qty": 1, "price": 49.99},
         ],
         "customer": {"id": 12, "name": "Leander"},
+        "coupon": {"percent": 10},
         "status": "processing",
         "shipped_at": None,
     })
