@@ -138,7 +138,7 @@ def transaction():
         with sentry_sdk.start_span(description="Test Span"):
             while counter < 10000:
                 counter = counter + 1
-        return "<h1>Test</h1>"
+    return "<h1>Test</h1>"
 
 
 if __name__ == "__main__":
