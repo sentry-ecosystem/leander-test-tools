@@ -6,9 +6,6 @@ from flask import Flask
 from sentry_sdk.integrations.flask import FlaskIntegration
 
 LOCAL_SENTRY_DSN = (
-    "https://c6b8c6c21bad812e48e2d115968a55e5@leeandher.ngrok.io/3"  # robots
-)
-LOCAL_SENTRY_DSN = (
     "https://87bca3472b590976a030e0e6456b72cc@leeandher.ngrok.io/2"  # humans
 )
 LOCAL_GETSENTRY_DSN = (
