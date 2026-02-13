@@ -2,6 +2,12 @@
 
 A repo of error generating projects to debug sentry locally.
 
+## About This Repository
+
+This repository contains local test tools for generating errors in Sentry during development and testing. These are standalone applications that can be run locally against your Sentry instance (local development, getsentry, or sentry.io).
+
+**Note:** This repository does NOT contain the source code for external test generators like error-generator.sentry.dev. Those are hosted separately and generate their own test errors in their respective environments (e.g., Vercel Edge Functions).
+
 ## Flask-Error
 
 A small project useful for generating errors in a flask project. 
