@@ -1,0 +1,20 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "env": {
+    "SENTRY_DSN": {
+      "description": "Sentry DSN for error tracking"
+    }
+  },
+  "functions": {
+    "api/robots.ts": {
+      "runtime": "edge",
+      "memory": 128
+    },
+    "api/transaction.ts": {
+      "runtime": "edge",
+      "memory": 128
+    }
+  }
+}
