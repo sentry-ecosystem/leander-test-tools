@@ -1,0 +1,24 @@
+{
+  "name": "edge-function-error-generator",
+  "version": "1.0.0",
+  "description": "Vercel Edge Function for generating Sentry test errors",
+  "main": "api/error.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel"
+  },
+  "keywords": [
+    "sentry",
+    "vercel",
+    "edge-function",
+    "error-generator"
+  ],
+  "author": "Sentry Ecosystem",
+  "license": "MIT",
+  "dependencies": {
+    "@sentry/nextjs": "^7.0.0"
+  },
+  "devDependencies": {
+    "vercel": "latest"
+  }
+}
