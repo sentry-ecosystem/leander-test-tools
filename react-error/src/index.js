@@ -9,6 +9,8 @@ import App from "./App";
 
 // FullStory.init({ orgId: "164KVD" });
 
+// NOTE: DSN configured to point to test/staging project only, never production.
+// This prevents test errors from reaching customer-facing projects.
 Sentry.init({
   dsn: "https://4bb8adf9789742c590395533a427a0e1@leeandher.ngrok.io/8",
   integrations: [

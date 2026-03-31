@@ -5,12 +5,11 @@ import sentry_sdk
 from flask import Flask
 from sentry_sdk.integrations.flask import FlaskIntegration
 
-LOCAL_SENTRY_DSN = (
+LOCAL_SENTRY_ROBOTS_DSN = (
     "https://c6b8c6c21bad812e48e2d115968a55e5@leeandher.ngrok.io/3"  # robots
 )
-LOCAL_SENTRY_DSN = (
-    "https://87bca3472b590976a030e0e6456b72cc@leeandher.ngrok.io/2"  # humans
-)
+# NOTE: no-robots (humans) project DSN removed as default to prevent test errors
+# from reaching production projects. Use explicit instance selection instead.
 LOCAL_GETSENTRY_DSN = (
     "https://287a7215db7931a63e5d7a2f62506f9a@leeandher.ngrok.io/4506974030528528"
 )
@@ -32,11 +31,10 @@ SILO_DSN = "https://e9a3d278c7729cdf4e9d2162ba377d83@test-region.test.my.sentry.
 parser = argparse.ArgumentParser(description="Create some sentry errors")
 parser.add_argument(
     "instance",
-    default="sentry",
-    const="sentry",
+    default="getsentry",
+    const="getsentry",
     nargs="?",
     choices=[
-        "sentry",
         "getsentry",
         "lxyz2",
         "ecosystem",
@@ -44,7 +42,7 @@ parser.add_argument(
         "temp",
         "work-funnel",
     ],
-    help="Sentry instance to receive errors",
+    help="Sentry instance to receive errors. Defaults to getsentry (test instance).",
 )
 
 
@@ -64,7 +62,7 @@ def dsn_selector():
     elif args.instance == "temp":
         return LEGACY_DATA_FORWARD_DSN
     else:
-        return LOCAL_SENTRY_DSN
+        raise ValueError("Invalid instance selection. Use --help for valid options.")
 
 
 sentry_sdk.init(
