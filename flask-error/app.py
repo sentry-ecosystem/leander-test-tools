@@ -1,4 +1,5 @@
 import argparse
+import re
 from datetime import datetime
 
 import sentry_sdk
@@ -67,11 +68,44 @@ def dsn_selector():
         return LOCAL_SENTRY_DSN
 
 
+SYNTHETIC_ERROR_PATTERNS = [
+    re.compile(r"^\d+/\d+=\s*!$"),  # matches "1/0= !" and similar
+]
+
+
+def before_send(event, hint):
+    """Filter out synthetic errors from external error generator tools."""
+    # Check exception values for synthetic patterns
+    if "exception" in event:
+        for exc in event["exception"].get("values", []):
+            value = exc.get("value", "")
+            for pattern in SYNTHETIC_ERROR_PATTERNS:
+                if pattern.search(value):
+                    return None
+
+    # Check top-level message for synthetic patterns
+    message = event.get("message", "")
+    for pattern in SYNTHETIC_ERROR_PATTERNS:
+        if pattern.search(message):
+            return None
+
+    # Check logentry for synthetic patterns
+    logentry = event.get("logentry", {})
+    if logentry:
+        formatted = logentry.get("formatted", "") or logentry.get("message", "")
+        for pattern in SYNTHETIC_ERROR_PATTERNS:
+            if pattern.search(formatted):
+                return None
+
+    return event
+
+
 sentry_sdk.init(
     dsn=dsn_selector(),
     integrations=[FlaskIntegration()],
     send_default_pii=True,
     traces_sample_rate=1.0,
+    before_send=before_send,
 )
 
 app = Flask(__name__)
