@@ -103,10 +103,7 @@ class RealtimePollingView {
       })
       .finally(() => {
         transaction.finish();
-        // BUG: passes this.poll as a bare function reference, losing `this` context.
-        // On the next invocation via setTimeout, `this` will be `window` (or undefined
-        // in strict mode), so this.collection, this.pollUrl, etc. will all be wrong.
-        this._timerId = window.setTimeout(this.poll, this.pollInterval);
+        this._timerId = window.setTimeout(this.poll.bind(this), this.pollInterval);
       });
   }
 
