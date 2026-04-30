@@ -67,11 +67,29 @@ def dsn_selector():
         return LOCAL_SENTRY_DSN
 
 
+SYNTHETIC_SERVER_NAMES = {"vercel-edge-function"}
+SYNTHETIC_LOGGERS = {"edge-function"}
+
+
+def before_send(event, hint):
+    """Drop synthetic errors injected by external error generators."""
+    server_name = event.get("server_name", "")
+    if server_name in SYNTHETIC_SERVER_NAMES:
+        return None
+
+    logger = event.get("logger", "")
+    if logger in SYNTHETIC_LOGGERS:
+        return None
+
+    return event
+
+
 sentry_sdk.init(
     dsn=dsn_selector(),
     integrations=[FlaskIntegration()],
     send_default_pii=True,
     traces_sample_rate=1.0,
+    before_send=before_send,
 )
 
 app = Flask(__name__)
