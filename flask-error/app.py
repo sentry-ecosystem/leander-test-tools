@@ -67,11 +67,23 @@ def dsn_selector():
         return LOCAL_SENTRY_DSN
 
 
+def before_send(event, hint):
+    # Filter out synthetic test errors from error-generator.sentry.dev
+    # These are fake events sent by the error generator tool (e.g. "anotho bog")
+    # via Vercel edge functions and should not pollute real project data.
+    if event.get("server_name") == "vercel-edge-function":
+        return None
+    if event.get("logger") == "edge-function":
+        return None
+    return event
+
+
 sentry_sdk.init(
     dsn=dsn_selector(),
     integrations=[FlaskIntegration()],
     send_default_pii=True,
     traces_sample_rate=1.0,
+    before_send=before_send,
 )
 
 app = Flask(__name__)
