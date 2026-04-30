@@ -1,4 +1,5 @@
 import argparse
+import os
 from datetime import datetime
 
 import sentry_sdk
@@ -16,18 +17,16 @@ LOCAL_GETSENTRY_DSN = (
 )
 
 # devsentry-ecosystem
-ECOSYSTEM_DSN = "https://234c699ac7f8b1dfd98765149a65b9fd@o4506792933130240.ingest.us.sentry.io/4509407223152640"
+ECOSYSTEM_DSN = os.environ.get("ECOSYSTEM_DSN", "")
 # sentry-leander-eu // legacy-data-forwarding
-LEGACY_DATA_FORWARD_DSN = "https://2e0ab03d072b9e54174406624fbf4ecc@o4509708210274304.ingest.de.sentry.io/4510358464954448"
+LEGACY_DATA_FORWARD_DSN = os.environ.get("LEGACY_DATA_FORWARD_DSN", "")
 
 # sentry-leander // all-robots
-SENTRY_LEANDER_DSN = "https://567e5289194ac1e211357003733f1894@o951660.ingest.us.sentry.io/4510818206810112"
+SENTRY_LEANDER_DSN = os.environ.get("SENTRY_LEANDER_DSN", "")
 #  lxyz2 // django
-LXYZ2_DSN = "https://2d557e71645717ee2b69cb7caf4c4d1c@o1115830.ingest.us.sentry.io/4508609084981249"
+LXYZ2_DSN = os.environ.get("LXYZ2_DSN", "")
 # leeandher // work-funnel
-WORK_FUNNEL_DSN = "https://1de16b5fb20c0dfe0379ec83d78194a5@o209069.ingest.us.sentry.io/4509707355947008"
-
-SILO_DSN = "https://e9a3d278c7729cdf4e9d2162ba377d83@test-region.test.my.sentry.io/4505992947957808"
+WORK_FUNNEL_DSN = os.environ.get("WORK_FUNNEL_DSN", "")
 
 parser = argparse.ArgumentParser(description="Create some sentry errors")
 parser.add_argument(
@@ -52,19 +51,25 @@ def dsn_selector():
     args = parser.parse_args()
     print(f"Sending errors to '{args.instance}' instance...")
     if args.instance == "getsentry":
-        return LOCAL_GETSENTRY_DSN
+        dsn = LOCAL_GETSENTRY_DSN
     elif args.instance == "lxyz2":
-        return LXYZ2_DSN
+        dsn = LXYZ2_DSN
     elif args.instance == "ecosystem":
-        return ECOSYSTEM_DSN
+        dsn = ECOSYSTEM_DSN
     elif args.instance == "leander":
-        return SENTRY_LEANDER_DSN
+        dsn = SENTRY_LEANDER_DSN
     elif args.instance == "work-funnel":
-        return WORK_FUNNEL_DSN
+        dsn = WORK_FUNNEL_DSN
     elif args.instance == "temp":
-        return LEGACY_DATA_FORWARD_DSN
+        dsn = LEGACY_DATA_FORWARD_DSN
     else:
-        return LOCAL_SENTRY_DSN
+        dsn = LOCAL_SENTRY_DSN
+    if not dsn:
+        raise RuntimeError(
+            f"DSN for '{args.instance}' is not configured. "
+            f"Set the corresponding environment variable (see .env.example)."
+        )
+    return dsn
 
 
 sentry_sdk.init(
