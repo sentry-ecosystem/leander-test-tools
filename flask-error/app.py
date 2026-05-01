@@ -67,11 +67,39 @@ def dsn_selector():
         return LOCAL_SENTRY_DSN
 
 
+SYNTHETIC_ERROR_TITLES = {"2break", "bronk", "break", "prod1"}
+
+
+def before_send(event, hint):
+    """Drop synthetic test errors from error-generator.sentry.dev."""
+    # Filter by known synthetic error titles
+    for exc_info in event.get("exception", {}).get("values", []):
+        if exc_info.get("value") in SYNTHETIC_ERROR_TITLES:
+            return None
+
+    # Filter events tagged with the error-generator source
+    tags = {t[0]: t[1] for t in event.get("tags", [])} if isinstance(
+        event.get("tags"), list
+    ) else event.get("tags", {})
+    if tags.get("source") == "error-generator.sentry.dev":
+        return None
+
+    # Filter events originating from Vercel edge-function test context
+    if (
+        event.get("server_name") == "vercel-edge-function"
+        or event.get("logger") == "edge-function"
+    ):
+        return None
+
+    return event
+
+
 sentry_sdk.init(
     dsn=dsn_selector(),
     integrations=[FlaskIntegration()],
     send_default_pii=True,
     traces_sample_rate=1.0,
+    before_send=before_send,
 )
 
 app = Flask(__name__)
