@@ -1,4 +1,5 @@
 import argparse
+import re
 from datetime import datetime
 
 import sentry_sdk
@@ -67,11 +68,36 @@ def dsn_selector():
         return LOCAL_SENTRY_DSN
 
 
+SYNTHETIC_TXN_PATTERN = re.compile(r"^test-transaction-\d+-[0-9a-f-]+$")
+
+
+def before_send(event, hint):
+    """Drop synthetic test errors injected by error-generator.sentry.dev."""
+    message = (event.get("message") or "").strip()
+    logentry = event.get("logentry", {}).get("message", "").strip()
+    exception_values = event.get("exception", {}).get("values", [])
+    exc_messages = [v.get("value", "") for v in exception_values]
+
+    txn_name = event.get("transaction", "")
+
+    # Drop events from error-generator test transactions
+    if SYNTHETIC_TXN_PATTERN.match(txn_name):
+        return None
+
+    # Drop the known synthetic 'prod1' fatal error
+    all_messages = [message, logentry] + exc_messages
+    if any(m.strip() == "prod1" for m in all_messages if m):
+        return None
+
+    return event
+
+
 sentry_sdk.init(
     dsn=dsn_selector(),
     integrations=[FlaskIntegration()],
     send_default_pii=True,
     traces_sample_rate=1.0,
+    before_send=before_send,
 )
 
 app = Flask(__name__)
