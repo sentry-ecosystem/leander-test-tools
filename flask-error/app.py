@@ -67,11 +67,22 @@ def dsn_selector():
         return LOCAL_SENTRY_DSN
 
 
+SYNTHETIC_ERROR_MESSAGES = frozenset(["bronk"])
+
+
+def before_send(event, hint):
+    message = (event.get("message") or event.get("logentry", {}).get("message", "")).lower()
+    if message in SYNTHETIC_ERROR_MESSAGES:
+        return None
+    return event
+
+
 sentry_sdk.init(
     dsn=dsn_selector(),
     integrations=[FlaskIntegration()],
     send_default_pii=True,
     traces_sample_rate=1.0,
+    before_send=before_send,
 )
 
 app = Flask(__name__)
