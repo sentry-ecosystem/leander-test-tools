@@ -1,0 +1,16 @@
+{
+  "name": "edge-error",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Vercel Edge Function error generator for Sentry testing",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "@sentry/vercel-edge": "^8.0.0"
+  },
+  "devDependencies": {
+    "vercel": "^37.0.0"
+  }
+}
