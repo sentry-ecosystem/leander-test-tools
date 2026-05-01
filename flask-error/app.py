@@ -67,11 +67,31 @@ def dsn_selector():
         return LOCAL_SENTRY_DSN
 
 
+def before_send(event, hint):
+    """Filter out synthetic errors injected by external tools like error-generator.sentry.dev.
+
+    Real app errors will have stack frames referencing local source files
+    (app.py, src/runner.py, etc.); synthetic errors from the error generator
+    have no such frames.
+    """
+    exceptions = (event.get("exception") or {}).get("values", [])
+    if exceptions:
+        for exc in exceptions:
+            frames = (exc.get("stacktrace") or {}).get("frames", [])
+            for frame in frames:
+                path = frame.get("abs_path") or frame.get("filename") or ""
+                if "app.py" in path or "src/" in path or "flask-error" in path:
+                    return event
+        return None
+    return event
+
+
 sentry_sdk.init(
     dsn=dsn_selector(),
     integrations=[FlaskIntegration()],
     send_default_pii=True,
     traces_sample_rate=1.0,
+    before_send=before_send,
 )
 
 app = Flask(__name__)

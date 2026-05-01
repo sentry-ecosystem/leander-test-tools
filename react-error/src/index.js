@@ -19,6 +19,28 @@ Sentry.init({
     }),
   ],
   tracesSampleRate: 1.0,
+  allowUrls: [/localhost/, /127\.0\.0\.1/],
+  beforeSend(event) {
+    // Filter out synthetic errors injected by external tools like error-generator.sentry.dev.
+    // Real app errors will have stack frames referencing local source files;
+    // synthetic errors from the error generator have no such frames.
+    if (event.exception && event.exception.values) {
+      const hasAppFrames = event.exception.values.some((ex) => {
+        const frames = (ex.stacktrace && ex.stacktrace.frames) || [];
+        return frames.some(
+          (frame) =>
+            frame.filename &&
+            (frame.filename.includes("localhost") ||
+              frame.filename.includes("/src/") ||
+              frame.filename.includes("webpack"))
+        );
+      });
+      if (!hasAppFrames) {
+        return null;
+      }
+    }
+    return event;
+  },
 });
 
 Sentry.setContext("session_id", "12123");
