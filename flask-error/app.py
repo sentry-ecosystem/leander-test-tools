@@ -67,11 +67,20 @@ def dsn_selector():
         return LOCAL_SENTRY_DSN
 
 
+def before_send_filter(event, hint):
+    txn = event.get("transaction", "")
+    user_id = str(event.get("user", {}).get("id", ""))
+    if txn.startswith("test-transaction-") or user_id.startswith("test-user-"):
+        return None
+    return event
+
+
 sentry_sdk.init(
     dsn=dsn_selector(),
     integrations=[FlaskIntegration()],
     send_default_pii=True,
     traces_sample_rate=1.0,
+    before_send=before_send_filter,
 )
 
 app = Flask(__name__)
