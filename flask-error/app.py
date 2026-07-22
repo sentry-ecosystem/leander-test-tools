@@ -98,6 +98,15 @@ def regular():
     </div>"""
 
 
+@app.route("/stack")
+def stack():
+    return """
+    <ul>
+    <li>Currently at the bottom of the stack!</li>
+    </ul>
+    """
+
+
 @app.route("/error")
 @app.route("/error/")
 def error():
