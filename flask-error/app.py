@@ -103,6 +103,7 @@ def stack():
     return """
     <ul>
     <li>Currently at the bottom of the stack!</li>
+    <li>one level up from there now</li>
     </ul>
     """
 
