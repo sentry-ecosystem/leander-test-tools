@@ -6,10 +6,7 @@ from flask import Flask
 from sentry_sdk.integrations.flask import FlaskIntegration
 
 LOCAL_SENTRY_DSN = (
-    "https://c6b8c6c21bad812e48e2d115968a55e5@leeandher.ngrok.io/3"  # robots
-)
-LOCAL_SENTRY_DSN = (
-    "https://87bca3472b590976a030e0e6456b72cc@leeandher.ngrok.io/2"  # humans
+    "https://219bcfa335e826aa4b7863f3f50c9674@leeandher.ngrok.io/2"  # acme // error-gen
 )
 LOCAL_GETSENTRY_DSN = (
     "https://287a7215db7931a63e5d7a2f62506f9a@leeandher.ngrok.io/4506974030528528"
@@ -17,9 +14,6 @@ LOCAL_GETSENTRY_DSN = (
 
 # devsentry-ecosystem
 ECOSYSTEM_DSN = "https://234c699ac7f8b1dfd98765149a65b9fd@o4506792933130240.ingest.us.sentry.io/4509407223152640"
-# sentry-leander-eu // legacy-data-forwarding
-LEGACY_DATA_FORWARD_DSN = "https://2e0ab03d072b9e54174406624fbf4ecc@o4509708210274304.ingest.de.sentry.io/4510358464954448"
-
 # sentry-leander // all-robots
 SENTRY_LEANDER_DSN = "https://567e5289194ac1e211357003733f1894@o951660.ingest.us.sentry.io/4510818206810112"
 #  lxyz2 // django
@@ -61,8 +55,6 @@ def dsn_selector():
         return SENTRY_LEANDER_DSN
     elif args.instance == "work-funnel":
         return WORK_FUNNEL_DSN
-    elif args.instance == "temp":
-        return LEGACY_DATA_FORWARD_DSN
     else:
         return LOCAL_SENTRY_DSN
 
