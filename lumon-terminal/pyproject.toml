@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=78"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lumon-terminal"
+version = "1.0.0"
+description = "Severed floor operations API and Sentry incident generator"
+requires-python = ">=3.11"
+dependencies = [
+    "Flask==3.1.1",
+    "python-dotenv==1.1.1",
+    "sentry-sdk[flask]==2.35.0",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

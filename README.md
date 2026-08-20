@@ -13,3 +13,7 @@ Defaults to `sentry` as the error location (local development on `getsentry/sent
 ## React-Error
 
 Automated error generation in a react project. Useful for generating many events on a single issue with a variety of tags unique properties.
+
+## Lumon Terminal
+
+A Severance-themed Flask API with 30 deterministic, realistic failures for Sentry Autofix, Seer, and VS Code extension demos. See [`lumon-terminal/README.md`](lumon-terminal/README.md) for setup, configuration, and the suggested demo flow.

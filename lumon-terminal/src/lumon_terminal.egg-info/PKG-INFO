@@ -1,0 +1,8 @@
+Metadata-Version: 2.4
+Name: lumon-terminal
+Version: 1.0.0
+Summary: Severed floor operations API and Sentry incident generator
+Requires-Python: >=3.11
+Requires-Dist: Flask==3.1.1
+Requires-Dist: python-dotenv==1.1.1
+Requires-Dist: sentry-sdk[flask]==2.35.0
