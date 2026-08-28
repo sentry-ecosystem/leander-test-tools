@@ -181,8 +181,7 @@ def outie_contact_details(employee_id: str) -> dict:
 
 
 def latest_board_message() -> dict:
-    board_speaker = None
-    return {"message": board_speaker("The Board has concluded the call.")}
+    return {"message": "The Board has concluded the call."}
 
 
 def project_cold_harbor_completion() -> dict:
