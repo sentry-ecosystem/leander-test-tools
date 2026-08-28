@@ -192,7 +192,7 @@ def project_cold_harbor_completion() -> dict:
 
 
 def export_timecards() -> str:
-    rows = [{"employee_id": "481516", "hours": 40.0}]
+    rows = [{"employee_id": "481516", "hours": 40.0, "cost_center": "MDR"}]
     return "\n".join(
-        f'{row["employee_id"]},{row["hours"]},{row["cost_center"]}' for row in rows
+        f'{row["employee_id"]},{row["hours"]},{row.get("cost_center", "")}' for row in rows
     )
